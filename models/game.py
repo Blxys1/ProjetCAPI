@@ -38,8 +38,13 @@ class Game:
         print("Game state saved.")
 
 
-        ### yassmine bsh tzid lhne code mta check for cafe card 
-
+    def check_for_cafe_card(self):
+            """Check if all players have chosen the 'joker' card."""
+            if all(player.current_vote == "joker" for player in self.players):
+                print("All players chose the 'joker' card! Saving game state.")
+                self.save_game_state()
+                return True
+            return False
 
     def start_game(self):
         """Main loop for running the game, where each player votes on each feature."""
