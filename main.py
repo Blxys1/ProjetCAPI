@@ -1,7 +1,11 @@
-# main.py
-
 from models.players import Player
+from models.game import Game
 
+# Create a sample game with 3 players
+game = Game(num_players=3, rules="strict")
+
+# Start the game (for now, it just initializes players and loads backlog)
+game.start_game()   
 # Create a sample player
 pseudo = input("Enter player's pseudo: ")
 
@@ -22,3 +26,9 @@ except ValueError as e:
 # Reset vote and check again
 player1.reset_vote()
 print(f"After reset, {player1.pseudo}'s vote is: {player1.current_vote}")
+
+# Create a sample game with 3 players
+game = Game(num_players=3, rules="strict")
+
+# Start the game (for now, it just initializes players and loads backlog)
+game.start_game()   
