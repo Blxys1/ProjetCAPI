@@ -10,9 +10,9 @@ when the tasks arent all validated the game stops yet it should restart the task
 - need to add sessions fix bugs 
 
 
-- create unitairy tests 
+- FIXED create unitairy tests 
 
-- create the documentations
+-  FIXED create the documentations
 
 - work on the interface
 
