@@ -1,7 +1,27 @@
 {
-    "backlog": [],
+    "backlog": [
+        {
+            "description": "Creer la page de connexion",
+            "difficulty": 1,
+            "validated": true
+        },
+        {
+            "description": "Ajouter une fonctionnalite de recherche",
+            "difficulty": 2,
+            "validated": true
+        },
+        {
+            "description": "Optimiser les performances de chargement",
+            "difficulty": null
+        },
+        {
+            "description": "Concevoir un tableau de bord interactif",
+            "difficulty": null
+        }
+    ],
     "players": [
         {
+<<<<<<< HEAD
             "pseudo": "nkl",
             "vote": null
         },
@@ -11,6 +31,13 @@
         },
         {
             "pseudo": "ljn",
+=======
+            "pseudo": "b",
+            "vote": null
+        },
+        {
+            "pseudo": "y",
+>>>>>>> a414d2907bbe1121832f32095b6fd885e8dc6f45
             "vote": null
         }
     ]

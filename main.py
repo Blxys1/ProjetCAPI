@@ -1,7 +1,16 @@
 from models.players import Player
 from models.game import Game
+import signal
+import os
 
 # Main menu
+def signal_handler(game):
+    """Signal handler to save the game state on interruption (Ctrl+C)."""
+    print("\nInterruption detected! Saving the game state...")
+    game.save_game_state("data/game_state.json")
+    print("Game state saved. Exiting the game.")
+    exit(0)
+
 def main_menu():
     while True:
         print("Bienvenue dans l'application Planning Poker")
@@ -31,14 +40,19 @@ def main_menu():
                 # add rules if the players chooses smt wrong 
             
             game = Game(num_players=num_players, rules=rules)
+            # Register signal handler to save state on interruption
+            signal.signal(signal.SIGINT, lambda s, f: signal_handler(game))
             game.start_game()
         elif choice == "2":
             try:
                 game = Game(num_players=0)  # Initialisation avec 0 joueurs
                 game.load_game_state("data/game_state.json")
                 game.start_game()
+
             except FileNotFoundError:
-                print("Aucune sauvegarde trouvée.")
+                print("Aucune sauvegarde trouvée. ")
+            except Exception as e:
+                print(f'Erreur lors du chargement de la partie {e}')
         elif choice == "3":
             print("Merci d'avoir utilisé Planning Poker. À bientôt !")
             break
