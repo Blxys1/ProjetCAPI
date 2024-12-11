@@ -1,0 +1,126 @@
+\doxysection{test\+\_\+game Namespace Reference}
+\hypertarget{namespacetest__game}{}\label{namespacetest__game}\index{test\_game@{test\_game}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacetest__game_a758d0cb9943140a7d1514e4b5f13da8e}{test\+\_\+player\+\_\+initialization}} ()
+\begin{DoxyCompactList}\small\item\em Tests the initialization of a Player object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetest__game_a064326e2e5a55c3f9edc99efb46879cf}{test\+\_\+player\+\_\+vote\+\_\+valid}} ()
+\begin{DoxyCompactList}\small\item\em Tests voting with a valid card. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetest__game_ac12fabcc434ceb028a8cef597bb97199}{test\+\_\+player\+\_\+vote\+\_\+invalid}} ()
+\begin{DoxyCompactList}\small\item\em Tests voting with an invalid card, expecting a Value\+Error. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetest__game_a83cdb9b5cd26c916e760c8515945169a}{test\+\_\+player\+\_\+reset\+\_\+vote}} ()
+\begin{DoxyCompactList}\small\item\em Tests resetting a player\textquotesingle{}s vote. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetest__game_a7a20454f7fa953db632203939cfbeed6}{test\+\_\+game\+\_\+initialization}} ()
+\begin{DoxyCompactList}\small\item\em Tests initializing the Game class with players and rules. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetest__game_a54cb08fabddd95a9aa01b52d16389c1c}{test\+\_\+backlog\+\_\+loading}} (tmpdir)
+\begin{DoxyCompactList}\small\item\em Tests loading the backlog from a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetest__game_a9067d988710cd56f5d53b778d09dc111}{test\+\_\+game\+\_\+state\+\_\+saving\+\_\+and\+\_\+loading}} (tmpdir)
+\begin{DoxyCompactList}\small\item\em Tests saving and loading the game state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetest__game_a13d73017de72d1a0225111f84b9cdc6d}{test\+\_\+process\+\_\+votes\+\_\+unanimity}} ()
+\begin{DoxyCompactList}\small\item\em Tests unanimous voting with the strict rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacetest__game_a7cbc6216756c2d0a0149d16789fb5b43}{test\+\_\+process\+\_\+votes\+\_\+no\+\_\+unanimity}} ()
+\begin{DoxyCompactList}\small\item\em Tests non-\/unanimous voting with the strict rule. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacetest__game_a54cb08fabddd95a9aa01b52d16389c1c}\index{test\_game@{test\_game}!test\_backlog\_loading@{test\_backlog\_loading}}
+\index{test\_backlog\_loading@{test\_backlog\_loading}!test\_game@{test\_game}}
+\doxysubsubsection{\texorpdfstring{test\_backlog\_loading()}{test\_backlog\_loading()}}
+{\footnotesize\ttfamily \label{namespacetest__game_a54cb08fabddd95a9aa01b52d16389c1c} 
+test\+\_\+game.\+test\+\_\+backlog\+\_\+loading (\begin{DoxyParamCaption}\item[{}]{tmpdir}{}\end{DoxyParamCaption})}
+
+
+
+Tests loading the backlog from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tmpdir} & Temporary directory provided by pytest. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacetest__game_a7a20454f7fa953db632203939cfbeed6}\index{test\_game@{test\_game}!test\_game\_initialization@{test\_game\_initialization}}
+\index{test\_game\_initialization@{test\_game\_initialization}!test\_game@{test\_game}}
+\doxysubsubsection{\texorpdfstring{test\_game\_initialization()}{test\_game\_initialization()}}
+{\footnotesize\ttfamily \label{namespacetest__game_a7a20454f7fa953db632203939cfbeed6} 
+test\+\_\+game.\+test\+\_\+game\+\_\+initialization (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Tests initializing the Game class with players and rules. 
+
+\Hypertarget{namespacetest__game_a9067d988710cd56f5d53b778d09dc111}\index{test\_game@{test\_game}!test\_game\_state\_saving\_and\_loading@{test\_game\_state\_saving\_and\_loading}}
+\index{test\_game\_state\_saving\_and\_loading@{test\_game\_state\_saving\_and\_loading}!test\_game@{test\_game}}
+\doxysubsubsection{\texorpdfstring{test\_game\_state\_saving\_and\_loading()}{test\_game\_state\_saving\_and\_loading()}}
+{\footnotesize\ttfamily \label{namespacetest__game_a9067d988710cd56f5d53b778d09dc111} 
+test\+\_\+game.\+test\+\_\+game\+\_\+state\+\_\+saving\+\_\+and\+\_\+loading (\begin{DoxyParamCaption}\item[{}]{tmpdir}{}\end{DoxyParamCaption})}
+
+
+
+Tests saving and loading the game state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tmpdir} & Temporary directory provided by pytest. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacetest__game_a758d0cb9943140a7d1514e4b5f13da8e}\index{test\_game@{test\_game}!test\_player\_initialization@{test\_player\_initialization}}
+\index{test\_player\_initialization@{test\_player\_initialization}!test\_game@{test\_game}}
+\doxysubsubsection{\texorpdfstring{test\_player\_initialization()}{test\_player\_initialization()}}
+{\footnotesize\ttfamily \label{namespacetest__game_a758d0cb9943140a7d1514e4b5f13da8e} 
+test\+\_\+game.\+test\+\_\+player\+\_\+initialization (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Tests the initialization of a Player object. 
+
+\Hypertarget{namespacetest__game_a83cdb9b5cd26c916e760c8515945169a}\index{test\_game@{test\_game}!test\_player\_reset\_vote@{test\_player\_reset\_vote}}
+\index{test\_player\_reset\_vote@{test\_player\_reset\_vote}!test\_game@{test\_game}}
+\doxysubsubsection{\texorpdfstring{test\_player\_reset\_vote()}{test\_player\_reset\_vote()}}
+{\footnotesize\ttfamily \label{namespacetest__game_a83cdb9b5cd26c916e760c8515945169a} 
+test\+\_\+game.\+test\+\_\+player\+\_\+reset\+\_\+vote (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Tests resetting a player\textquotesingle{}s vote. 
+
+\Hypertarget{namespacetest__game_ac12fabcc434ceb028a8cef597bb97199}\index{test\_game@{test\_game}!test\_player\_vote\_invalid@{test\_player\_vote\_invalid}}
+\index{test\_player\_vote\_invalid@{test\_player\_vote\_invalid}!test\_game@{test\_game}}
+\doxysubsubsection{\texorpdfstring{test\_player\_vote\_invalid()}{test\_player\_vote\_invalid()}}
+{\footnotesize\ttfamily \label{namespacetest__game_ac12fabcc434ceb028a8cef597bb97199} 
+test\+\_\+game.\+test\+\_\+player\+\_\+vote\+\_\+invalid (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Tests voting with an invalid card, expecting a Value\+Error. 
+
+\Hypertarget{namespacetest__game_a064326e2e5a55c3f9edc99efb46879cf}\index{test\_game@{test\_game}!test\_player\_vote\_valid@{test\_player\_vote\_valid}}
+\index{test\_player\_vote\_valid@{test\_player\_vote\_valid}!test\_game@{test\_game}}
+\doxysubsubsection{\texorpdfstring{test\_player\_vote\_valid()}{test\_player\_vote\_valid()}}
+{\footnotesize\ttfamily \label{namespacetest__game_a064326e2e5a55c3f9edc99efb46879cf} 
+test\+\_\+game.\+test\+\_\+player\+\_\+vote\+\_\+valid (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Tests voting with a valid card. 
+
+\Hypertarget{namespacetest__game_a7cbc6216756c2d0a0149d16789fb5b43}\index{test\_game@{test\_game}!test\_process\_votes\_no\_unanimity@{test\_process\_votes\_no\_unanimity}}
+\index{test\_process\_votes\_no\_unanimity@{test\_process\_votes\_no\_unanimity}!test\_game@{test\_game}}
+\doxysubsubsection{\texorpdfstring{test\_process\_votes\_no\_unanimity()}{test\_process\_votes\_no\_unanimity()}}
+{\footnotesize\ttfamily \label{namespacetest__game_a7cbc6216756c2d0a0149d16789fb5b43} 
+test\+\_\+game.\+test\+\_\+process\+\_\+votes\+\_\+no\+\_\+unanimity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Tests non-\/unanimous voting with the strict rule. 
+
+\Hypertarget{namespacetest__game_a13d73017de72d1a0225111f84b9cdc6d}\index{test\_game@{test\_game}!test\_process\_votes\_unanimity@{test\_process\_votes\_unanimity}}
+\index{test\_process\_votes\_unanimity@{test\_process\_votes\_unanimity}!test\_game@{test\_game}}
+\doxysubsubsection{\texorpdfstring{test\_process\_votes\_unanimity()}{test\_process\_votes\_unanimity()}}
+{\footnotesize\ttfamily \label{namespacetest__game_a13d73017de72d1a0225111f84b9cdc6d} 
+test\+\_\+game.\+test\+\_\+process\+\_\+votes\+\_\+unanimity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Tests unanimous voting with the strict rule. 
+
