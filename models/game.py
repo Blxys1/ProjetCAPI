@@ -38,13 +38,11 @@ class Game:
 
     def initialize_players(self, num_players):
 
-        """@brief Initialize players and collect their pseudonyms.
+        """@brief Initialize players the psuedo names will be set externally.
         @param num_players The number of players to initialize.
             
             """
-        for i in range(num_players):
-            pseudo = input(f"Enter a pseudonym for Player {i+1}: ")
-            self.players.append(Player(pseudo))
+        self.players = [Player("") for _ in range(num_players)]
         print(f"{num_players} players have been added.")
 
     def load_backlog(self, filepath):
