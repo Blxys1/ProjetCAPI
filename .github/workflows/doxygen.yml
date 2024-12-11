@@ -2,24 +2,26 @@ name: Doxygen Documentation
 
 on:
   push:
-    branches: [main]  # Trigger this workflow when changes are pushed to the 'main' branch
+    branches:
+      - main  # Triggers when changes are pushed to the 'main' branch
 
 jobs:
   generate-docs:
-    runs-on: ubuntu-latest  # This specifies that the job will run on an Ubuntu environment
+    runs-on: ubuntu-latest  # The job will run on the latest Ubuntu runner
 
     steps:
-      - name: Checkout the repo
-        uses: actions/checkout@v2  # This step checks out your repository to the runner
+      - name: Checkout the repository
+        uses: actions/checkout@v2  # Checks out your repository
 
-      - name: Setup Doxygen
-        uses: mattnotmitt/setup-doxygen@v1  # This step installs Doxygen on the runner
+      - name: Set up Doxygen
+        uses: mattnotmitt/setup-doxygen@v1  # Installs Doxygen on the runner
 
       - name: Generate Documentation
-        run: doxygen Doxyfile  # This runs Doxygen using the 'Doxyfile' configuration file
+        run: doxygen Doxyfile  # Run Doxygen with your 'Doxyfile'
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3  # This step deploys the generated documentation to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3  # Deploys generated docs to GitHub Pages
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # This token is used for authentication
-          publish_dir: ./docs/html  # Directory where the documentation is generated (adjust if needed)
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
+          publish_dir: ./docs/html  # Directory where Doxygen generates docs (ensure this matches your config)
+
