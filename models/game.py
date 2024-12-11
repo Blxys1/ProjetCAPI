@@ -1,5 +1,6 @@
 import json
 from models.players import Player
+import os
 
 
 class Game:
@@ -14,6 +15,12 @@ class Game:
         self.backlog = []
         self.rules = rules  # "strict", "average", "median", etc.
         self.current_feature = None
+        # Ensure the save directory exists
+        os.makedirs("data", exist_ok=True)
+
+        # Auto-create save file
+        if not os.path.exists("data/game_state.json"):
+            self.save_game_state()
         self.load_backlog("data/backlog.json")
         self.initialize_players(num_players)
 
@@ -55,6 +62,7 @@ class Game:
 
     def start_game(self):
         """Main loop for running the game, where each player votes on each feature."""
+        
         # Ensure there is a backlog to process
         if not self.backlog:
             print("No tasks in backlog to vote on.")
@@ -176,15 +184,34 @@ class Game:
             player.reset_vote()
         return True
     
-    def load_game_state(self, filepath): # Load the game state from a file
-        with open(filepath, "r") as file:
-            data = json.load(file)
-        self.backlog = data["backlog"]
-        for player_data in data["players"]:
-            player = Player(player_data["pseudo"])
-            player.current_vote = player_data["vote"]
-            self.players.append(player)
-        print("Game state loaded successfully.")
+    def load_game_state(self, filepath): 
+        try: # Load the game state from a file
+            with open(filepath, "r") as file:
+                data = json.load(file)
+             # Load backlog
+            self.backlog = data.get("backlog", [])
+            if not self.backlog:
+                print("Backlog is empty in the save file.")
+
+            self.players = []
+            for player_data in data.get("players", []):
+                player = Player(player_data["pseudo"])
+                player.current_vote = player_data.get("vote", "")
+                self.players.append(player)
+
+            print("Game state loaded successfully.")
+        except FileNotFoundError:
+            raise FileNotFoundError("Le fichier de sauvegarde est introuvable.")
+        except json.JSONDecodeError:
+            raise ValueError("Le fichier de sauvegarde est corrompu ou invalide.")
+        if not self.backlog:
+            print("No tasks in backlog to vote on.")
+            return
+
+        if not self.players:
+            print("No players loaded. Please start a new game.")
+            return
+
 
     def save_final_report(self, filepath="data/final_report.json"):
         """Save the final report of validated features with their estimated difficulty."""
