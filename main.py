@@ -5,13 +5,22 @@ import os
 
 # Main menu
 def signal_handler(game):
-    """Signal handler to save the game state on interruption (Ctrl+C)."""
+
+    """@brief Signal handler to save the game state on interruption (Ctrl+C).
+    @param game The current game instance.
+    """
     print("\nInterruption detected! Saving the game state...")
     game.save_game_state("data/game_state.json")
     print("Game state saved. Exiting the game.")
     exit(0)
 
 def main_menu():
+    """
+    @brief Main menu for the Planning Poker application.
+
+    @details The main menu allows the user to start a new game, load a saved game, or quit the application.
+
+    """
     while True:
         print("Bienvenue dans l'application Planning Poker")
         print("1. Nouvelle partie")

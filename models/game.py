@@ -4,6 +4,12 @@ import os
 
 
 class Game:
+    """
+    @class Game
+    @brief Represents the Planning Poker game and its rules.
+
+
+    """
     
     #def timeout(pseudo, timeout_duration=10):
      #   """Notify the player if they run out of time to vote."""
@@ -11,6 +17,12 @@ class Game:
        # threading.Timer(timeout_duration, lambda: print(f"Time is up for {pseudo}!")).start()
 
     def __init__(self, num_players, rules="strict"):
+        """@brief Constructor for the Game class.
+        @param num_players The number of players in the game.
+        @param rules The voting rules to use for the game   
+
+
+            """
         self.players = []
         self.backlog = []
         self.rules = rules  # "strict", "average", "median", etc.
@@ -25,14 +37,20 @@ class Game:
         self.initialize_players(num_players)
 
     def initialize_players(self, num_players):
-        """Initialize players and collect their pseudonyms."""
+
+        """@brief Initialize players and collect their pseudonyms.
+        @param num_players The number of players to initialize.
+            
+            """
         for i in range(num_players):
             pseudo = input(f"Enter a pseudonym for Player {i+1}: ")
             self.players.append(Player(pseudo))
         print(f"{num_players} players have been added.")
 
     def load_backlog(self, filepath):
-        """Loads backlog items from a JSON file."""
+
+        """@brief Loads backlog items from a JSON file.
+        @param filepath The path to the JSON file containing the backlog."""
         try:
             with open(filepath, "r") as file:
                 self.backlog = json.load(file).get("tasks", [])
@@ -42,7 +60,11 @@ class Game:
             self.backlog = []
 
     def save_game_state(self, filepath="data/game_state.json"):
-        """Save the current game state (backlog and player votes) to a file."""
+
+        """@brief Save the current game state (backlog and player votes) to a file.
+        @param filepath The path to the file to save the game state."""
+
+
         game_state = {
             "backlog": self.backlog,
             "players": [{"pseudo": player.pseudo, "vote": player.current_vote} for player in self.players]
@@ -53,7 +75,9 @@ class Game:
 
 
     def check_for_cafe_card(self):
-            """Check if all players have chosen the 'joker' card."""
+            """ @brief Check if all players have chosen the 'joker' card.
+            @return True if all players have chosen the 'joker' card, False otherwise.
+            """
             if all(player.current_vote == "joker" for player in self.players):
                 print("All players chose the 'joker' card! Saving game state.")
                 self.save_game_state()
@@ -61,7 +85,13 @@ class Game:
             return False
 
     def start_game(self):
-        """Main loop for running the game, where each player votes on each feature."""
+        """@brief Main loop for running the game, where each player votes on each feature.
+        @brief Process the backlog of features and collect votes from players.
+        @brief Validate each feature based on the chosen rules.
+        @brief Save the final report with validated features and their estimated difficulty.
+
+
+        """
         
         # Ensure there is a backlog to process
         if not self.backlog:
@@ -98,13 +128,16 @@ class Game:
             self.save_final_report()
     
     def reset_votes(self):
-        """Reset the votes for all players to allow revoting."""
+        """@brief Reset the votes for all players to allow revoting.
+        """
         for player in self.players:
             player.reset_vote()
 
 
     def collect_votes(self):
-        """Collects votes from each player for the current feature."""
+        """@brief Collects votes from each player for the current feature.
+        
+        """
         for player in self.players:
             while True:
                 #Game.timeout(player.pseudo)
@@ -117,7 +150,10 @@ class Game:
                     print(e)  # Ask for input again if card is invalid
 
     def process_votes(self):
-        """Process the votes based on the chosen rules."""
+        """@brief Process the votes based on the chosen rules.
+        @return True if the feature is validated, False otherwise.
+        
+        """
         print("\nVotes collected:")
 
         difficulty=None
@@ -184,7 +220,12 @@ class Game:
             player.reset_vote()
         return True
     
-    def load_game_state(self, filepath): 
+    def load_game_state(self, filepath):
+        """@brief Load the game state from a file.
+        @param filepath The path to the file containing the game state.
+        @throws FileNotFoundError if the file is not found.
+        @throws ValueError if the file is corrupted or invalid.
+        """ 
         try: # Load the game state from a file
             with open(filepath, "r") as file:
                 data = json.load(file)
@@ -214,7 +255,10 @@ class Game:
 
 
     def save_final_report(self, filepath="data/final_report.json"):
-        """Save the final report of validated features with their estimated difficulty."""
+        """@brief Save the final report of validated features with their estimated difficulty.
+        @param filepath The path to the file to save the final report.
+        
+        """
         report = {"tasks": self.backlog}  # Save the entire backlog with updates
         print("Saving final report:", report)  # Debug print
         with open(filepath, "w", encoding="utf-8") as file:
