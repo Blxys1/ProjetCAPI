@@ -1,12 +1,42 @@
 from models.players import Player
 from models.game import Game
 
-# Create a sample game with 3 players
-game = Game(num_players=3, rules="strict")
+print("Bienvenue dans l'application Planning Poker")
+print("1. Nouvelle partie")
+print("2. Charger une partie")
+print("3. Quitter")
 
-# Start the game (for now, it just initializes players and loads backlog)
-game.start_game()   
+choice = input("Choisissez une option : ") # i want to loop in case the user gives smt other than 1 2 3 
+while True:
+    if choice not in ["1", "2", "3"]:
+        print("Choix invalide.")
+        choice = input("Choisissez une option : ")
+    
+    else:
+        break
 
-# Save the game state to a file*
-game.save_game_state()
-
+if choice == "1":
+    num_players = int(input("Entrez le nombre de joueurs : "))
+    while num_players <= 1:
+        print("Nombre de joueurs invalide.")
+        num_players = int(input("Entrez le nombre de joueurs : "))
+    rules = input("Choisissez une règle (strict, average, median, absolute_majority, relative_majority) : ")
+    while rules not in ["strict", "average", "median", "absolute_majority", "relative_majority"]:
+        print("Règle invalide.")
+        rules = input("Choisissez une règle (strict, average, median, absolute_majority, relative_majority) : ")
+        
+         # add rules if the players chooses smt wrong 
+    
+    game = Game(num_players=num_players, rules=rules)
+    game.start_game()
+elif choice == "2":
+    try:
+        game = Game(num_players=0)  # Initialisation avec 0 joueurs
+        game.load_game_state("data/game_state.json")
+        game.start_game()
+    except FileNotFoundError:
+        print("Aucune sauvegarde trouvée.")
+elif choice == "3":
+    print("Merci d'avoir utilisé Planning Poker. À bientôt !")
+else:
+    print("Option invalide. Veuillez réessayer.")
