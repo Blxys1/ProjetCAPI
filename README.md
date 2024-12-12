@@ -18,3 +18,10 @@ when the tasks arent all validated the game stops yet it should restart the task
 
 - correct the language all to eng or all to fr 
 
+- to be fixed in the interface: 
+
+submit through enter 
+fix the : when not validated it need to re ask again 
+fix the final report i want to display it 
+fix the load game in ther interface
+
