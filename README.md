@@ -14,7 +14,8 @@ when the tasks arent all validated the game stops yet it should restart the task
 
 - create the documentations
 
-- work on the interface
+- work on the interface : 
+      wa9teli tache not validated , y3awed yektebha 
 
 - correct the language all to eng or all to fr 
 
