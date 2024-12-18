@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from models.players import Player
 from models.game import Game
+import os
 
 
 class PlanningPokerApp:
@@ -9,6 +10,9 @@ class PlanningPokerApp:
         self.root = root
         self.root.title("Planning Poker")
         self.root.geometry("800x600")
+
+        # Ensure the save directory exists
+        os.makedirs("data", exist_ok=True)
 
         # Style
         self.style = ttk.Style()
@@ -23,9 +27,10 @@ class PlanningPokerApp:
         self.voting_frame = tk.Frame(root, bg="#f0f0f0")
         self.results_frame = tk.Frame(root, bg="#f0f0f0")
 
-        # Menu principal
+        # Main menu
         self.initialize_main_menu()
         self.switch_frame(self.main_menu_frame)
+    
 
     def initialize_main_menu(self):
         self.main_menu_frame.pack(fill="both", expand=True)
@@ -146,15 +151,23 @@ class PlanningPokerApp:
 
             if self.game.process_votes():
                 self.show_popup("Success", f"Feature '{self.game.current_feature['description']}' validated!")
-                self.game.backlog.pop(0)
-                self.game.current_feature = None
+                
+                # Move to the next feature without removing from backlog
+                current_index = self.game.backlog.index(self.game.current_feature)
+                self.game.backlog[current_index]["validated"] = True
 
-                # Sauvegarde du rapport final si toutes les tâches sont terminées
-                if not self.game.backlog:
+                # Check if there are more tasks
+                if any(not task.get("validated", False) for task in self.game.backlog):
+                    # Find the next unvalidated feature
+                    for feature in self.game.backlog:
+                        if not feature.get("validated", False):
+                            self.game.current_feature = feature
+                            break
+                    self.start_voting()
+                else:
+                    # All tasks are validated, save the final report
                     self.game.save_final_report("data/final_report.json")
                     self.display_final_report()
-                else:
-                    self.start_voting()
             else:
                 self.show_popup("Info", f"Feature '{self.game.current_feature['description']}' not validated. Revoting...")
                 self.game.reset_votes()
@@ -169,9 +182,10 @@ class PlanningPokerApp:
 
         for feature in self.game.backlog:
             status = "Validated" if feature.get("validated", False) else "Not Validated"
-            tk.Label(self.results_frame, text=f"Feature: {feature['description']}, Status: {status}", bg="#f0f0f0").pack(pady=5)
+            tk.Label(self.results_frame, text=f"Feature: {feature['description']}, Status: {status}",   bg="#f0f0f0").pack(pady=5)
 
         ttk.Button(self.results_frame, text="Back to Main Menu", command=lambda: self.switch_frame(self.main_menu_frame)).pack(pady=20)
+
 
 if __name__ == "__main__":
     root = tk.Tk()

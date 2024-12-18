@@ -13,16 +13,13 @@ when the tasks arent all validated the game stops yet it should restart the task
 - FIXED create unitairy tests 
 
 -  FIXED create the documentations
+FIXED fix the : when not validated it need to re ask again  
+FIXED fix the final report i want to display it 
 
-- work on the interface : 
-      wa9teli tache not validated , y3awed yektebha 
-
+------------------------------------------------------------------------
 - correct the language all to eng or all to fr 
 
 - to be fixed in the interface: 
-
 submit through enter 
-fix the : when not validated it need to re ask again 
-fix the final report i want to display it 
 fix the load game in ther interface
 

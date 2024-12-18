@@ -148,76 +148,62 @@ class Game:
                     print(e)  # Ask for input again if card is invalid
 
     def process_votes(self):
-        """@brief Process the votes based on the chosen rules.
-        @return True if the feature is validated, False otherwise.
-        
-        """
+        """Process the votes based on the chosen rules."""
         print("\nVotes collected:")
-
-        difficulty=None
-        
         votes = [player.current_vote for player in self.players]
         print(f"Votes: {votes}")
-        
+
+        difficulty = None
+        validated = False  # Default validation status
+
         if self.rules == "strict":
-            # Unanimité : Tous les votes doivent être égaux
+            # Unanimity: All votes must be the same
             if len(set(votes)) == 1:
-                print("Unanimity reached! Feature validated.")
                 difficulty = int(votes[0])
-            else:
-                print("No unanimity. Feature not validated. Revote required.")
-                return False
+                validated = True
         elif self.rules == "average":
-            # Moyenne : Calcul de la moyenne des votes numériques
-            valid_votes = [int(vote) for vote in votes if vote != "joker"]
+            # Average: Compute the mean of all numerical votes
+            valid_votes = [int(vote) for vote in votes if vote.isdigit()]
             if valid_votes:
                 difficulty = sum(valid_votes) / len(valid_votes)
-                print(f"Average vote: {difficulty}")
-            else:
-                print("No valid votes to calculate an average.")
+                validated = True
         elif self.rules == "median":
-            # Médiane : Calcul de la médiane
-                valid_votes = [int(vote) for vote in votes if vote != "joker"]
-                if valid_votes:
-                    sorted_votes = sorted(valid_votes)
-                    mid = len(sorted_votes) // 2
-                    if len(sorted_votes) % 2 == 0:
-                        difficulty = (sorted_votes[mid - 1] + sorted_votes[mid]) / 2
-                    else:
-                        difficulty = sorted_votes[mid]
-                    print(f"Median vote: {difficulty}")
-                else:
-                    print("No valid votes to calculate a median.")
-        elif self.rules == "absolute_majority": # Majorité absolue
+            # Median: Compute the median of all numerical votes
+            valid_votes = sorted(int(vote) for vote in votes if vote.isdigit())
+            if valid_votes:
+                mid = len(valid_votes) // 2
+                difficulty = (valid_votes[mid] + valid_votes[-mid - 1]) / 2 if len(valid_votes) % 2 == 0 else valid_votes[mid]
+                validated = True
+        elif self.rules == "absolute_majority":
+            # Absolute Majority: One vote must have > 50% of total votes
             from collections import Counter
             vote_count = Counter(votes)
             max_vote, max_count = vote_count.most_common(1)[0]
-            if max_count > len(self.players) / 2:
+            if max_count > len(votes) / 2:
                 difficulty = int(max_vote)
-                print(f"Absolute majority reached with card {difficulty}. Feature validated!")
-                return True
-            print("No absolute majority. Revote required.")
-            return False
-        elif self.rules == "relative_majority": # Majorité relative
+                validated = True
+        elif self.rules == "relative_majority":
+            # Relative Majority: The most frequent vote wins
             from collections import Counter
             vote_count = Counter(votes)
-            max_vote, max_count = vote_count.most_common(1)[0]
+            max_vote, _ = vote_count.most_common(1)[0]
             difficulty = int(max_vote)
-            print(f"Relative majority reached with card {difficulty}. Feature validated!")
-            return True
+            validated = True
 
-        else:
-            print("No valid rule selected.")
-        
-        # Réinitialiser les votes pour le prochain tour
-        if difficulty is not None:
+        # Update feature if validated
+        if validated and difficulty is not None:
+            self.current_feature["validated"] = True
             self.current_feature["difficulty"] = difficulty
-            print(f"Difficulty for feature '{self.current_feature['description']}' set to: {difficulty}")
+            print(f"Feature '{self.current_feature['description']}' validated with difficulty: {difficulty}")
+        else:
+            print("Feature not validated. Revote required.")
 
+        # Reset votes for next round
         for player in self.players:
             player.reset_vote()
-        return True
-    
+
+        return validated
+
     def load_game_state(self, filepath):
         """@brief Load the game state from a file.
         @param filepath The path to the file containing the game state.
@@ -257,9 +243,10 @@ class Game:
         @param filepath The path to the file to save the final report.
         
         """
-        report = {"tasks": self.backlog}  # Save the entire backlog with updates
+        report = {"tasks": self.backlog}  # Save validated tasks only
         print("Saving final report:", report)  # Debug print
+        
         with open(filepath, "w", encoding="utf-8") as file:
             json.dump(report, file, ensure_ascii=False, indent=4)
         print("Final report saved.")
-        
+            
