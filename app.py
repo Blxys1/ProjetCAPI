@@ -133,6 +133,7 @@ class PlanningPokerApp:
             frame = tk.Frame(self.voting_frame, bg="#f0f0f0")
             frame.pack(pady=10)
             tk.Label(frame, text=f"{player.pseudo}'s vote: ", font=("Arial", 14), bg="#f0f0f0").pack(side="left")
+            tk.Label(frame, text=f"Available Cards: {', '.join(player.cards)}", font=("Arial", 12), bg="#f0f0f0").pack(pady=5)
             var = tk.StringVar()
             self.vote_inputs[player.pseudo] = var
             ttk.Entry(frame, textvariable=var).pack(side="left")

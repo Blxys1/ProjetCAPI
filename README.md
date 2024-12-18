@@ -20,6 +20,6 @@ FIXED fix the final report i want to display it
 - correct the language all to eng or all to fr 
 
 - to be fixed in the interface: 
-submit through enter 
+
 fix the load game in ther interface
 
