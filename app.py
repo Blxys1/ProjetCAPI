@@ -3,26 +3,27 @@ from tkinter import ttk, messagebox
 from models.players import Player
 from models.game import Game
 
+
 class PlanningPokerApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Planning Poker")
         self.root.geometry("800x600")
 
-        # Add a style
+        # Style
         self.style = ttk.Style()
         self.style.configure("TButton", font=("Arial", 12), padding=10)
         self.style.configure("TLabel", font=("Arial", 14))
 
         self.game = None
 
-        # Initialize Frames
+        # Frames
         self.main_menu_frame = tk.Frame(root, bg="#f0f0f0")
         self.setup_frame = tk.Frame(root, bg="#f0f0f0")
         self.voting_frame = tk.Frame(root, bg="#f0f0f0")
         self.results_frame = tk.Frame(root, bg="#f0f0f0")
 
-        # Initialize Main Menu
+        # Menu principal
         self.initialize_main_menu()
         self.switch_frame(self.main_menu_frame)
 
@@ -53,13 +54,11 @@ class PlanningPokerApp:
 
         tk.Label(self.setup_frame, text="Enter Number of Players:", bg="#f0f0f0").pack(pady=10)
         num_players_var = tk.IntVar()
-        num_players_entry = ttk.Entry(self.setup_frame, textvariable=num_players_var)
-        num_players_entry.pack(pady=5)
+        ttk.Entry(self.setup_frame, textvariable=num_players_var).pack(pady=5)
 
         tk.Label(self.setup_frame, text="Enter Rules (strict, average, median, absolute_majority, relative_majority):", bg="#f0f0f0").pack(pady=10)
         rules_var = tk.StringVar()
-        rules_entry = ttk.Entry(self.setup_frame, textvariable=rules_var)
-        rules_entry.pack(pady=5)
+        ttk.Entry(self.setup_frame, textvariable=rules_var).pack(pady=5)
 
         def setup_players():
             num_players = num_players_var.get()
@@ -114,19 +113,15 @@ class PlanningPokerApp:
 
     def start_voting(self):
         self.switch_frame(self.voting_frame)
-
         for widget in self.voting_frame.winfo_children():
             widget.destroy()
 
-        if not self.game.backlog:
-            self.show_popup("Info", "No tasks in backlog to vote on.")
-            self.switch_frame(self.main_menu_frame)
-            return
+        if not self.game.current_feature:
+            self.game.current_feature = self.game.backlog[0]
 
-        feature = self.game.backlog.pop(0)
-        self.game.current_feature = feature
-
-        tk.Label(self.voting_frame, text=f"Current Feature: {feature['description']}", font=("Arial", 18, "bold"), bg="#f0f0f0").pack(pady=20)
+        current_feature = self.game.current_feature
+        tk.Label(self.voting_frame, text=f"Current Feature: {current_feature['description']}", 
+                 font=("Arial", 18, "bold"), bg="#f0f0f0").pack(pady=20)
 
         self.vote_inputs = {}
         for player in self.game.players:
@@ -151,16 +146,19 @@ class PlanningPokerApp:
 
             if self.game.process_votes():
                 self.show_popup("Success", f"Feature '{self.game.current_feature['description']}' validated!")
+                self.game.backlog.pop(0)
+                self.game.current_feature = None
+
+                # Sauvegarde du rapport final si toutes les tâches sont terminées
+                if not self.game.backlog:
+                    self.game.save_final_report("data/final_report.json")
+                    self.display_final_report()
+                else:
+                    self.start_voting()
             else:
                 self.show_popup("Info", f"Feature '{self.game.current_feature['description']}' not validated. Revoting...")
                 self.game.reset_votes()
                 self.start_voting()
-                return
-
-            if self.game.backlog:
-                self.start_voting()
-            else:
-                self.display_final_report()
         except Exception as e:
             self.show_popup("Error", f"Error: {str(e)}")
 
