@@ -1,5 +1,5 @@
 import json
-from models.players import Player
+from models.players import Player 
 import os
 
 
@@ -104,6 +104,7 @@ class Game:
             # Collect votes from each player for the current feature
             while True:
                 self.collect_votes()
+                
             
                 # Check the votes and validate the feature
                 if self.process_votes():
@@ -117,7 +118,6 @@ class Game:
                     print("Please revote:")
                     self.reset_votes()
 
-                
             # If all players chose the cafe card, save the state
             if self.check_for_cafe_card():
                 break

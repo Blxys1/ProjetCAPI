@@ -18,8 +18,8 @@ FIXED fix the final report i want to display it
 
 ------------------------------------------------------------------------
 - correct the language all to eng or all to fr 
+- cafe card 
+- first round strict rule
+-input fonctionalities 
 
-- to be fixed in the interface: 
-
-fix the load game in ther interface
 
