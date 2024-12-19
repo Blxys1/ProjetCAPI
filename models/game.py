@@ -161,20 +161,22 @@ class Game:
             if len(set(votes)) == 1:
                 difficulty = int(votes[0])
                 validated = True
-        elif self.rules == "average":
+        
+        elif self.rules == "average" :
+
             # Average: Compute the mean of all numerical votes
             valid_votes = [int(vote) for vote in votes if vote.isdigit()]
             if valid_votes:
                 difficulty = sum(valid_votes) / len(valid_votes)
                 validated = True
-        elif self.rules == "median":
+        elif self.rules == "median" :
             # Median: Compute the median of all numerical votes
             valid_votes = sorted(int(vote) for vote in votes if vote.isdigit())
             if valid_votes:
                 mid = len(valid_votes) // 2
                 difficulty = (valid_votes[mid] + valid_votes[-mid - 1]) / 2 if len(valid_votes) % 2 == 0 else valid_votes[mid]
                 validated = True
-        elif self.rules == "absolute_majority":
+        elif self.rules == "absolute_majority" :
             # Absolute Majority: One vote must have > 50% of total votes
             from collections import Counter
             vote_count = Counter(votes)
@@ -250,3 +252,4 @@ class Game:
             json.dump(report, file, ensure_ascii=False, indent=4)
         print("Final report saved.")
             
+    

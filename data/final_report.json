@@ -7,17 +7,17 @@
         },
         {
             "description": "Ajouter une fonctionnalite de recherche",
-            "difficulty": 1,
+            "difficulty": 2,
             "validated": true
         },
         {
             "description": "Optimiser les performances de chargement",
-            "difficulty": 20,
+            "difficulty": 2,
             "validated": true
         },
         {
             "description": "Concevoir un tableau de bord interactif",
-            "difficulty": 100,
+            "difficulty": 2,
             "validated": true
         }
     ]

@@ -2,8 +2,22 @@ from models.players import Player
 from models.game import Game
 import signal
 import os
-
+import json 
 # Main menu
+def add_task(tasks):
+    # Prompt the user for task description
+    description = input("Enter the task description: ")
+    
+    # Add the new task to the list
+    tasks["tasks"].append({"description": description, "difficulty": None})
+    print("Task added successfully!")
+    return tasks
+
+def save_to_json(tasks, filename="./data/backlog.json"):
+    with open(filename, "w") as file:
+        json.dump(tasks, file, indent=4)
+    print(f"Tasks saved to {filename}.")
+
 def signal_handler(game):
 
     """@brief Signal handler to save the game state on interruption (Ctrl+C).
@@ -67,5 +81,14 @@ def main_menu():
             break
      
 
+
 if __name__ == "__main__":
+    nb_tasks = int(input("Enter the number of tasks   "))  
+    tasks = {"tasks":[]}    
+    for _ in range(nb_tasks):  
+        print(f"Task {_+1}")
+        add_task(tasks)
+        save_to_json(tasks)
     main_menu()
+
+
