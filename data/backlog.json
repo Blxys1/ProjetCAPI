@@ -1,11 +1,21 @@
 {
     "tasks": [
         {
-            "description": "ertynt,ukilo",
+            "description": "Creation d'un menu",
             "difficulty": null
         },
         {
-            "description": "cdvfbhgj,k;",
+            "description": "Ajout et automatisation des tests et des documentations",
+            "difficulty": null
+        }
+        ,
+        {
+            "description": "Redaction du rapport",
+            "difficulty": null
+        }
+        ,
+        {
+            "description": "Creation de l'interface graphique",
             "difficulty": null
         }
     ]

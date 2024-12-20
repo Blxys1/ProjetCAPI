@@ -1,23 +1,23 @@
 {
     "tasks": [
         {
-            "description": "Creer la page de connexion",
-            "difficulty": 2,
+            "description": "Creation d'un menu",
+            "difficulty": 1,
             "validated": true
         },
         {
-            "description": "Ajouter une fonctionnalite de recherche",
-            "difficulty": 2,
+            "description": "Ajout et automatisation des tests et des documentations",
+            "difficulty": 1,
             "validated": true
         },
         {
-            "description": "Optimiser les performances de chargement",
-            "difficulty": 2,
+            "description": "Redaction du rapport",
+            "difficulty": 1,
             "validated": true
         },
         {
-            "description": "Concevoir un tableau de bord interactif",
-            "difficulty": 2,
+            "description": "Creation de l'interface graphique",
+            "difficulty": 1,
             "validated": true
         }
     ]
